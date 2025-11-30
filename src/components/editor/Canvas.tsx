@@ -5,6 +5,12 @@ import { HeadingBlockComponent } from '@/components/blocks/HeadingBlockComponent
 import { TextBlockComponent } from '@/components/blocks/TextBlockComponent';
 import { ImageBlockComponent } from '@/components/blocks/ImageBlockComponent';
 import { ButtonBlockComponent } from '@/components/blocks/ButtonBlockComponent';
+import { ContainerBlockComponent } from '@/components/blocks/ContainerBlockComponent';
+import { VideoBlockComponent } from '@/components/blocks/VideoBlockComponent';
+import { DividerBlockComponent } from '@/components/blocks/DividerBlockComponent';
+import { ListBlockComponent } from '@/components/blocks/ListBlockComponent';
+import { CardBlockComponent } from '@/components/blocks/CardBlockComponent';
+import { SpacerBlockComponent } from '@/components/blocks/SpacerBlockComponent';
 import { Block } from '@/types/blocks';
 import { GripVertical, Trash2, Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -27,6 +33,18 @@ export const Canvas: React.FC = () => {
         return <ImageBlockComponent block={ block } isSelected={ isSelected } />;
       case 'button':
         return <ButtonBlockComponent block={ block } isSelected={ isSelected } />;
+      case 'container':
+        return <ContainerBlockComponent block={ block } isSelected={ isSelected } selectedBlockId={ selectedBlockId } onBlockSelect={ setSelectedBlockId } />;
+      case 'video':
+        return <VideoBlockComponent block={ block } isSelected={ isSelected } />;
+      case 'divider':
+        return <DividerBlockComponent block={ block } isSelected={ isSelected } />;
+      case 'list':
+        return <ListBlockComponent block={ block } isSelected={ isSelected } isEditing={ isSelected } />;
+      case 'card':
+        return <CardBlockComponent block={ block } isSelected={ isSelected } />;
+      case 'spacer':
+        return <SpacerBlockComponent block={ block } isSelected={ isSelected } />;
     }
   };
 
