@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { Block, Page, ContainerBlock } from '@/types/blocks';
+import { PageTemplate } from '@/lib/pageTemplates';
 
 interface EditorContextType {
   currentPage: Page | null;
@@ -15,6 +16,7 @@ interface EditorContextType {
   reorderBlocks: (startIndex: number, endIndex: number) => void;
   reorderBlocksInContainer: (containerId: string, startIndex: number, endIndex: number) => void;
   createPage: (title: string, slug: string) => void;
+  createPageFromTemplate: (template: PageTemplate, title: string, slug: string) => void;
   loadPage: (id: string) => void;
   savePage: () => void;
   deletePage: (id: string) => void;
@@ -62,6 +64,18 @@ export const EditorProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       slug,
       blocks: [],
       createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    setCurrentPage(newPage);
+  }, []);
+
+  const createPageFromTemplate = useCallback((template: PageTemplate, title: string, slug: string) => {
+    const templatePage = template.create();
+    const newPage: Page = {
+      ...templatePage,
+      id: Date.now().toString(),
+      title,
+      slug,
       updatedAt: new Date().toISOString(),
     };
     setCurrentPage(newPage);
@@ -309,6 +323,7 @@ export const EditorProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         reorderBlocks,
         reorderBlocksInContainer,
         createPage,
+        createPageFromTemplate,
         loadPage,
         savePage,
         deletePage,

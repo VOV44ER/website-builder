@@ -17,14 +17,17 @@ import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { generateHTML, generateReact } from '@/lib/codeGenerator';
+import { pageTemplates, PageTemplate } from '@/lib/pageTemplates';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const EditorHeader: React.FC = () => {
-  const { currentPage, savePage, createPage, pages } = useEditor();
+  const { currentPage, savePage, createPage, createPageFromTemplate, pages } = useEditor();
   const navigate = useNavigate();
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
   const [newPageTitle, setNewPageTitle] = useState('');
   const [newPageSlug, setNewPageSlug] = useState('');
+  const [selectedTemplate, setSelectedTemplate] = useState<PageTemplate | null>(null);
   const [exportFormat, setExportFormat] = useState<'html' | 'react'>('html');
 
   const handleSave = () => {
@@ -40,20 +43,26 @@ export const EditorHeader: React.FC = () => {
 
   const handleCreatePage = () => {
     if (!newPageTitle || !newPageSlug) {
-      toast.error('Please fill in all fields');
+      toast.error('Заполните все поля');
       return;
     }
 
     if (pages.some(p => p.slug === newPageSlug)) {
-      toast.error('A page with this slug already exists');
+      toast.error('Страница с таким slug уже существует');
       return;
     }
 
-    createPage(newPageTitle, newPageSlug);
+    if (selectedTemplate) {
+      createPageFromTemplate(selectedTemplate, newPageTitle, newPageSlug);
+    } else {
+      createPage(newPageTitle, newPageSlug);
+    }
+
     setNewPageTitle('');
     setNewPageSlug('');
+    setSelectedTemplate(null);
     setIsCreateDialogOpen(false);
-    toast.success('Page created!');
+    toast.success('Страница создана!');
   };
 
   const getGeneratedCode = () => {
@@ -95,35 +104,63 @@ export const EditorHeader: React.FC = () => {
           <DialogTrigger asChild>
             <Button variant="outline" size="sm">
               <Plus className="w-4 h-4 mr-2" />
-              New Page
+              Новая страница
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Create New Page</DialogTitle>
+              <DialogTitle>Создать новую страницу</DialogTitle>
+              <DialogDescription>
+                Выберите шаблон или создайте пустую страницу
+              </DialogDescription>
             </DialogHeader>
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div>
-                <Label htmlFor="title">Page Title</Label>
-                <Input
-                  id="title"
-                  value={ newPageTitle }
-                  onChange={ (e) => setNewPageTitle(e.target.value) }
-                  placeholder="About Us"
-                />
+                <Label className="mb-2 block">Выберите шаблон</Label>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  { pageTemplates.map((template) => (
+                    <Card
+                      key={ template.id }
+                      className={ `cursor-pointer transition-all hover:border-primary ${selectedTemplate?.id === template.id ? 'border-primary ring-2 ring-primary' : ''
+                        }` }
+                      onClick={ () => setSelectedTemplate(template) }
+                    >
+                      <CardHeader className="pb-2">
+                        <div className="text-4xl mb-2">{ template.thumbnail }</div>
+                        <CardTitle className="text-base">{ template.name }</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <CardDescription className="text-xs">
+                          { template.description }
+                        </CardDescription>
+                      </CardContent>
+                    </Card>
+                  )) }
+                </div>
               </div>
-              <div>
-                <Label htmlFor="slug">URL Slug</Label>
-                <Input
-                  id="slug"
-                  value={ newPageSlug }
-                  onChange={ (e) => setNewPageSlug(e.target.value) }
-                  placeholder="about-us"
-                />
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="title">Название страницы</Label>
+                  <Input
+                    id="title"
+                    value={ newPageTitle }
+                    onChange={ (e) => setNewPageTitle(e.target.value) }
+                    placeholder="О нас"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="slug">URL Slug</Label>
+                  <Input
+                    id="slug"
+                    value={ newPageSlug }
+                    onChange={ (e) => setNewPageSlug(e.target.value) }
+                    placeholder="about-us"
+                  />
+                </div>
+                <Button onClick={ handleCreatePage } className="w-full">
+                  Создать страницу
+                </Button>
               </div>
-              <Button onClick={ handleCreatePage } className="w-full">
-                Create Page
-              </Button>
             </div>
           </DialogContent>
         </Dialog>
