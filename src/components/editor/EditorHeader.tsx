@@ -43,12 +43,12 @@ export const EditorHeader: React.FC = () => {
 
   const handleCreatePage = () => {
     if (!newPageTitle || !newPageSlug) {
-      toast.error('Заполните все поля');
+      toast.error('Please fill in all fields');
       return;
     }
 
     if (pages.some(p => p.slug === newPageSlug)) {
-      toast.error('Страница с таким slug уже существует');
+      toast.error('A page with this slug already exists');
       return;
     }
 
@@ -62,7 +62,7 @@ export const EditorHeader: React.FC = () => {
     setNewPageSlug('');
     setSelectedTemplate(null);
     setIsCreateDialogOpen(false);
-    toast.success('Страница создана!');
+    toast.success('Page created successfully!');
   };
 
   const getGeneratedCode = () => {
@@ -104,19 +104,19 @@ export const EditorHeader: React.FC = () => {
           <DialogTrigger asChild>
             <Button variant="outline" size="sm">
               <Plus className="w-4 h-4 mr-2" />
-              Новая страница
+              New Page
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Создать новую страницу</DialogTitle>
+              <DialogTitle>Create New Page</DialogTitle>
               <DialogDescription>
-                Выберите шаблон или создайте пустую страницу
+                Choose a template or start with a blank page
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-6">
               <div>
-                <Label className="mb-2 block">Выберите шаблон</Label>
+                <Label className="mb-2 block">Choose Template</Label>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   { pageTemplates.map((template) => (
                     <Card
@@ -140,12 +140,12 @@ export const EditorHeader: React.FC = () => {
               </div>
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="title">Название страницы</Label>
+                  <Label htmlFor="title">Page Title</Label>
                   <Input
                     id="title"
                     value={ newPageTitle }
                     onChange={ (e) => setNewPageTitle(e.target.value) }
-                    placeholder="О нас"
+                    placeholder="About Us"
                   />
                 </div>
                 <div>
@@ -158,7 +158,7 @@ export const EditorHeader: React.FC = () => {
                   />
                 </div>
                 <Button onClick={ handleCreatePage } className="w-full">
-                  Создать страницу
+                  Create Page
                 </Button>
               </div>
             </div>

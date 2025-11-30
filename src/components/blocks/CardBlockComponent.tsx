@@ -29,25 +29,25 @@ export const CardBlockComponent: React.FC<Props> = ({ block, isSelected }) => {
     return (
         <div
             className={ `rounded-lg transition-all border ${isSelected ? 'ring-2 ring-primary bg-block-hover' : 'border-border'
-                } cursor-pointer overflow-hidden` }
+                } cursor-pointer overflow-hidden w-full` }
             style={ cardStyles }
         >
             { block.imageUrl && (
                 <img
                     src={ block.imageUrl }
                     alt={ block.title }
-                    className="w-full h-48 object-cover"
+                    className="w-full h-48 md:h-56 object-cover"
                 />
             ) }
-            <div className="p-4">
-                <h3 className="text-xl font-semibold mb-2" style={ textStyles }>
+            <div className="p-4 md:p-6">
+                <h3 className="text-lg md:text-xl font-semibold mb-2" style={ textStyles }>
                     { block.title || 'Card Title' }
                 </h3>
-                <p className="text-muted-foreground mb-4" style={ textStyles }>
+                <p className="text-sm md:text-base text-muted-foreground mb-4" style={ textStyles }>
                     { block.content || 'Card content' }
                 </p>
                 { block.buttonText && block.buttonUrl && (
-                    <Button variant="outline" asChild>
+                    <Button variant="outline" asChild className="w-full md:w-auto">
                         <a href={ block.buttonUrl } target="_blank" rel="noopener noreferrer">
                             { block.buttonText }
                         </a>

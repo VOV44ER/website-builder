@@ -150,7 +150,7 @@ export const BlocksPalette: React.FC = () => {
       <h2 className="text-lg font-semibold mb-4 text-sidebar-foreground">Blocks</h2>
       { isContainerSelected && (
         <div className="mb-4 p-2 bg-primary/10 border border-primary/20 rounded-md text-xs text-primary">
-          Контейнер выбран. Блоки будут добавляться в контейнер.
+          Container selected. Blocks will be added to the container.
         </div>
       ) }
       <div className="space-y-2">

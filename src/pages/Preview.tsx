@@ -85,7 +85,7 @@ const Preview = () => {
         <div className="flex items-center justify-between">
           <Button variant="outline" onClick={ () => navigate('/editor') }>
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Назад в редактор
+            Back to Editor
           </Button>
           <Tabs value={ viewportSize } onValueChange={ (value) => setViewportSize(value as ViewportSize) }>
             <TabsList>

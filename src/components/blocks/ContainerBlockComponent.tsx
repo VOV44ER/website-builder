@@ -48,7 +48,10 @@ const renderBlock = (block: Block, isSelected: boolean, isEditing: boolean) => {
 
 export const ContainerBlockComponent: React.FC<Props> = ({ block, isSelected, selectedBlockId, onBlockSelect }) => {
     const editor = useEditorOptional();
-    const layoutClass = block.layout === 'horizontal' ? 'flex flex-row' : 'flex flex-col';
+    const isHorizontal = block.layout === 'horizontal';
+    const layoutClass = isHorizontal
+        ? 'flex flex-row flex-wrap md:flex-nowrap'
+        : 'flex flex-col';
     const gap = block.gap || '1rem';
     const isEditable = !!editor;
 
@@ -161,7 +164,7 @@ export const ContainerBlockComponent: React.FC<Props> = ({ block, isSelected, se
             >
                 <div className={ `${layoutClass} min-h-[100px]` } style={ { gap } }>
                     <div className="text-center py-8 text-muted-foreground text-sm w-full">
-                        { isEditable ? 'Контейнер пуст. Добавьте блоки из палитры.' : '' }
+                        { isEditable ? 'Container is empty. Add blocks from the palette.' : '' }
                     </div>
                 </div>
             </div>
