@@ -146,7 +146,7 @@ export const BlocksPalette: React.FC = () => {
   };
 
   return (
-    <div className="w-64 bg-sidebar border-r border-sidebar-border p-4 overflow-y-auto">
+    <div className="w-56 bg-sidebar border-r border-sidebar-border p-4 overflow-y-auto">
       <h2 className="text-lg font-semibold mb-4 text-sidebar-foreground">Blocks</h2>
       { isContainerSelected && (
         <div className="mb-4 p-2 bg-primary/10 border border-primary/20 rounded-md text-xs text-primary">

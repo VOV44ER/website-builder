@@ -50,7 +50,7 @@ export const ContainerBlockComponent: React.FC<Props> = ({ block, isSelected, se
     const editor = useEditorOptional();
     const isHorizontal = block.layout === 'horizontal';
     const layoutClass = isHorizontal
-        ? 'flex flex-row flex-wrap md:flex-nowrap'
+        ? 'flex flex-col sm:flex-row flex-wrap'
         : 'flex flex-col';
     const gap = block.gap || '1rem';
     const isEditable = !!editor;
@@ -93,9 +93,9 @@ export const ContainerBlockComponent: React.FC<Props> = ({ block, isSelected, se
         ...(block.styles?.boxShadow && { boxShadow: block.styles.boxShadow }),
     };
 
-    const renderBlockContent = (childBlock: Block, index: number, provided?: any, snapshot?: any) => {
-        const blockContent = (
-            <div className="relative group">
+    const renderBlockItem = (childBlock: Block, index: number, provided?: any, snapshot?: any) => {
+        const blockElement = (
+            <div className="relative group w-full">
                 { isEditable && provided && (
                     <div className="absolute right-0 top-0 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 z-10">
                         <div
@@ -122,7 +122,15 @@ export const ContainerBlockComponent: React.FC<Props> = ({ block, isSelected, se
                         </Button>
                     </div>
                 ) }
-                { renderBlock(childBlock, selectedBlockId === childBlock.id, isEditable && selectedBlockId === childBlock.id) }
+                <div
+                    onClick={ (e) => {
+                        if ((e.target as HTMLElement).closest('button')) return;
+                        e.stopPropagation();
+                        onBlockSelect?.(childBlock.id);
+                    } }
+                >
+                    { renderBlock(childBlock, selectedBlockId === childBlock.id, isEditable && selectedBlockId === childBlock.id) }
+                </div>
             </div>
         );
 
@@ -131,29 +139,14 @@ export const ContainerBlockComponent: React.FC<Props> = ({ block, isSelected, se
                 <div
                     ref={ provided.innerRef }
                     { ...provided.draggableProps }
-                    className={ `${snapshot?.isDragging ? 'opacity-50' : ''}` }
-                    onClick={ (e) => {
-                        if ((e.target as HTMLElement).closest('button')) return;
-                        e.stopPropagation();
-                        onBlockSelect?.(childBlock.id);
-                    } }
+                    className={ `w-full ${snapshot?.isDragging ? 'opacity-50' : ''}` }
                 >
-                    { blockContent }
+                    { blockElement }
                 </div>
             );
         }
 
-        return (
-            <div
-                onClick={ (e) => {
-                    if ((e.target as HTMLElement).closest('button')) return;
-                    e.stopPropagation();
-                    onBlockSelect?.(childBlock.id);
-                } }
-            >
-                { blockContent }
-            </div>
-        );
+        return blockElement;
     };
 
     if (block.blocks.length === 0) {
@@ -170,6 +163,32 @@ export const ContainerBlockComponent: React.FC<Props> = ({ block, isSelected, se
             </div>
         );
     }
+
+    const content = (
+        <div
+            className={ `${layoutClass} min-h-[100px]` }
+            style={ { gap } }
+        >
+            { block.blocks.map((childBlock, index) => {
+                if (isEditable) {
+                    return (
+                        <Draggable key={ childBlock.id } draggableId={ childBlock.id } index={ index }>
+                            { (provided, snapshot) => (
+                                <div key={ childBlock.id }>
+                                    { renderBlockItem(childBlock, index, provided, snapshot) }
+                                </div>
+                            ) }
+                        </Draggable>
+                    );
+                }
+                return (
+                    <div key={ childBlock.id }>
+                        { renderBlockItem(childBlock, index) }
+                    </div>
+                );
+            }) }
+        </div>
+    );
 
     if (isEditable) {
         return (
@@ -193,7 +212,7 @@ export const ContainerBlockComponent: React.FC<Props> = ({ block, isSelected, se
                             >
                                 { block.blocks.map((childBlock, index) => (
                                     <Draggable key={ childBlock.id } draggableId={ childBlock.id } index={ index }>
-                                        { (provided, snapshot) => renderBlockContent(childBlock, index, provided, snapshot) }
+                                        { (provided, snapshot) => renderBlockItem(childBlock, index, provided, snapshot) }
                                     </Draggable>
                                 )) }
                                 { provided.placeholder }
@@ -210,16 +229,7 @@ export const ContainerBlockComponent: React.FC<Props> = ({ block, isSelected, se
             className={ `rounded-lg transition-all` }
             style={ containerStyles }
         >
-            <div
-                className={ `${layoutClass} min-h-[100px]` }
-                style={ { gap } }
-            >
-                { block.blocks.map((childBlock, index) => (
-                    <div key={ childBlock.id }>
-                        { renderBlockContent(childBlock, index) }
-                    </div>
-                )) }
-            </div>
+            { content }
         </div>
     );
 };

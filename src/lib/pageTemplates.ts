@@ -91,8 +91,10 @@ export const pageTemplates: PageTemplate[] = [
                             styles: {
                                 backgroundColor: '#ffffff',
                                 borderRadius: '1rem',
-                                padding: '1.5rem',
+                                padding: '1rem',
                                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                                minWidth: '280px',
+                                flex: '1 1 300px',
                             },
                         },
                         {
@@ -105,8 +107,10 @@ export const pageTemplates: PageTemplate[] = [
                             styles: {
                                 backgroundColor: '#ffffff',
                                 borderRadius: '1rem',
-                                padding: '1.5rem',
+                                padding: '1rem',
                                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                                minWidth: '280px',
+                                flex: '1 1 300px',
                             },
                         },
                         {
@@ -119,8 +123,10 @@ export const pageTemplates: PageTemplate[] = [
                             styles: {
                                 backgroundColor: '#ffffff',
                                 borderRadius: '1rem',
-                                padding: '1.5rem',
+                                padding: '1rem',
                                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                                minWidth: '280px',
+                                flex: '1 1 300px',
                             },
                         },
                     ],
@@ -129,7 +135,7 @@ export const pageTemplates: PageTemplate[] = [
                     position: 5,
                     styles: {
                         margin: '0 0 4rem 0',
-                        padding: '1rem',
+                        padding: '0.5rem',
                     },
                 },
             ];
@@ -310,8 +316,10 @@ export const pageTemplates: PageTemplate[] = [
                             styles: {
                                 backgroundColor: '#ffffff',
                                 borderRadius: '1rem',
-                                padding: '2rem',
+                                padding: '1.5rem',
                                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                                minWidth: '280px',
+                                flex: '1 1 300px',
                             },
                         },
                         {
@@ -325,8 +333,10 @@ export const pageTemplates: PageTemplate[] = [
                             styles: {
                                 backgroundColor: '#ffffff',
                                 borderRadius: '1rem',
-                                padding: '2rem',
+                                padding: '1.5rem',
                                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                                minWidth: '280px',
+                                flex: '1 1 300px',
                             },
                         },
                         {
@@ -338,8 +348,10 @@ export const pageTemplates: PageTemplate[] = [
                             styles: {
                                 backgroundColor: '#ffffff',
                                 borderRadius: '1rem',
-                                padding: '2rem',
+                                padding: '1.5rem',
                                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                                minWidth: '280px',
+                                flex: '1 1 300px',
                             },
                         },
                     ],
@@ -348,7 +360,7 @@ export const pageTemplates: PageTemplate[] = [
                     position: 2,
                     styles: {
                         margin: '0 0 4rem 0',
-                        padding: '1rem',
+                        padding: '0.5rem',
                     },
                 },
                 {
