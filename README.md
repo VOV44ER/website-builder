@@ -1,6 +1,6 @@
 # Simple Site Builder
 
-A modern, portfolio‑ready drag & drop page builder (micro‑CMS) built with React, TypeScript, Tailwind CSS and shadcn/ui.
+A modern, drag & drop page builder (micro‑CMS) built with React, TypeScript, Tailwind CSS and shadcn/ui.
 
 ## Features
 
