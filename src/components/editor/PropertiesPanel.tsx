@@ -16,7 +16,7 @@ export const PropertiesPanel: React.FC = () => {
 
     if (!block || !selectedBlockId) {
         return (
-            <div className="w-72 bg-sidebar border-l border-sidebar-border p-4">
+            <div className="w-72 bg-sidebar border-sidebar-border p-4">
                 <h2 className="text-lg font-semibold mb-4 text-sidebar-foreground">Properties</h2>
                 <p className="text-sm text-muted-foreground">Select a block to edit its properties</p>
             </div>
@@ -58,7 +58,7 @@ export const PropertiesPanel: React.FC = () => {
     };
 
     return (
-        <div className="w-72 bg-sidebar border-l border-sidebar-border p-4 overflow-y-auto">
+        <div className="w-72 bg-sidebar border-sidebar-border p-4 overflow-y-auto">
             <h2 className="text-lg font-semibold mb-4 text-sidebar-foreground">Properties</h2>
             <div className="space-y-4">
                 { renderProperties() }

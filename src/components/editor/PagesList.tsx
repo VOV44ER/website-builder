@@ -23,15 +23,15 @@ export const PagesList: React.FC = () => {
   }
 
   return (
-    <div className="w-56 bg-sidebar border-l border-sidebar-border p-4 overflow-y-auto">
+    <div className="w-56 bg-sidebar border-sidebar-border p-4 overflow-y-auto">
       <h2 className="text-lg font-semibold mb-4 text-sidebar-foreground">Pages</h2>
       <div className="space-y-2">
         { pages.map((page) => (
           <div
             key={ page.id }
             className={ `flex items-center justify-between p-3 rounded-lg border cursor-pointer transition-all ${currentPage?.id === page.id
-                ? 'bg-primary text-primary-foreground border-primary'
-                : 'border-sidebar-border hover:bg-muted'
+              ? 'bg-primary text-primary-foreground border-primary'
+              : 'border-sidebar-border hover:bg-muted'
               }` }
             onClick={ () => loadPage(page.id) }
           >

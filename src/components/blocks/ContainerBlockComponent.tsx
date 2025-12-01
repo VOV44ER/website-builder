@@ -97,7 +97,7 @@ export const ContainerBlockComponent: React.FC<Props> = ({ block, isSelected, se
         const blockElement = (
             <div className="relative group w-full">
                 { isEditable && provided && (
-                    <div className="absolute right-0 top-0 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 z-10">
+                    <div className="absolute right-2 top-8 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2 z-10">
                         <div
                             { ...provided.dragHandleProps }
                             className="h-7 w-7 flex items-center justify-center rounded-md border border-input bg-background hover:bg-muted cursor-grab active:cursor-grabbing transition-colors"

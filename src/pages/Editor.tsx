@@ -15,6 +15,16 @@ const Editor = () => {
   const [showPages, setShowPages] = useState(false);
   const [showProperties, setShowProperties] = useState(true);
 
+  const getFloatingRight = () => {
+    if (showProperties) {
+      return '304px'; // ~w-72 + gap
+    }
+    if (showPages) {
+      return '240px'; // ~w-56 + gap
+    }
+    return '16px';
+  };
+
   if (isMobile) {
     return <MobileNotSupported />;
   }
@@ -39,17 +49,6 @@ const Editor = () => {
               <PropertiesPanel />
             </div>
           ) }
-          { !showProperties && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="absolute top-4 right-4 z-10 shadow-lg"
-              onClick={ () => setShowProperties(true) }
-            >
-              <Settings className="w-4 h-4 mr-2" />
-              Properties
-            </Button>
-          ) }
           { showPages && (
             <div className="relative">
               <Button
@@ -63,18 +62,33 @@ const Editor = () => {
               <PagesList />
             </div>
           ) }
-          { !showPages && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="absolute top-4 z-10 shadow-lg"
-              onClick={ () => setShowPages(true) }
-              style={ { right: showProperties ? '300px' : '16px' } }
-            >
-              <FileText className="w-4 h-4 mr-2" />
-              Pages
-            </Button>
-          ) }
+          <div
+            className="absolute top-4 z-10 flex flex-col gap-2"
+            style={ { right: getFloatingRight() } }
+          >
+            { !showProperties && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="shadow-lg"
+                onClick={ () => setShowProperties(true) }
+              >
+                <Settings className="w-4 h-4 mr-2" />
+                Properties
+              </Button>
+            ) }
+            { !showPages && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="shadow-lg"
+                onClick={ () => setShowPages(true) }
+              >
+                <FileText className="w-4 h-4 mr-2" />
+                Pages
+              </Button>
+            ) }
+          </div>
         </div>
       </div>
     </EditorProvider>
