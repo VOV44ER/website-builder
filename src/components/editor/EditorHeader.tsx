@@ -19,6 +19,7 @@ import { toast } from 'sonner';
 import { generateHTML, generateReact } from '@/lib/codeGenerator';
 import { pageTemplates, PageTemplate } from '@/lib/pageTemplates';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ThemeToggle } from '@/components/theme/ThemeToggle';
 
 export const EditorHeader: React.FC = () => {
   const { currentPage, savePage, createPage, createPageFromTemplate, pages } = useEditor();
@@ -167,6 +168,7 @@ export const EditorHeader: React.FC = () => {
       </div>
 
       <div className="flex items-center gap-2">
+        <ThemeToggle />
         <Dialog open={ isExportDialogOpen } onOpenChange={ setIsExportDialogOpen }>
           <DialogTrigger asChild>
             <Button variant="outline" size="sm" disabled={ !currentPage }>
