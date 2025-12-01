@@ -37,7 +37,7 @@ const Editor = () => {
           <BlocksPalette />
           <Canvas />
           { showProperties && (
-            <div className="relative">
+            <div className="relative h-full">
               <Button
                 variant="ghost"
                 size="sm"
@@ -50,7 +50,7 @@ const Editor = () => {
             </div>
           ) }
           { showPages && (
-            <div className="relative">
+            <div className="relative h-full">
               <Button
                 variant="ghost"
                 size="sm"
